@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="joy_utils" type="joy_conv.py" name="joy_conv" >
+    <rosparam command="load" file="$(find joy_utils)/config/joy_conv_example.yaml" />
+  </node>
+</launch>

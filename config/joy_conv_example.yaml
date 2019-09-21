@@ -1,0 +1,10 @@
+rules:
+  a0: a1
+  a1: a1 + a2
+  a2: a0 if b0 else a1
+  # m, np, and math available as modules
+  # m is numpy if available, otherwise the standard math module
+  a3: m.sin(a0 * 2 * np.pi)
+  b0: not b0
+  b1: b0 ^ b1
+  b2: 1 if a0 > 0.5 else 0
