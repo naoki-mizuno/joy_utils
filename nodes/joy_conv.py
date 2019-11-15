@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-from joy_utils.converter import Converter
-
 import rospy
 from sensor_msgs.msg import Joy
+from joy_utils.converter import Converter
 
 
 class JoyConv(object):
