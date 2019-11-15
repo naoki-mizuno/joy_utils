@@ -208,6 +208,11 @@ class Combo(object):
         :type joy_msg: Joy
         :return dict of button indices (in string) and values
         """
+        if not isinstance(joy_msg, Joy):
+            name = joy_msg.__class__.__name__
+            fmt = 'Expected Joy instance but got {} instead'
+            rospy.logwarn_throttle(5, fmt.format(name))
+
         msg_dict = {}
         for i, value in enumerate(joy_msg.buttons):
             msg_dict[str(i)] = value
