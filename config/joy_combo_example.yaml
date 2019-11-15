@@ -1,0 +1,16 @@
+timeout:
+  key: 0.05
+  combo: 0.3
+combos:
+  - combo: ['0']
+    print: '0'
+  - combo: ['0', '1']
+    print: '0 -> 1'
+  - combo: ['0:d', '1:d', '0:u', '1:u']
+    print: '0 (press) -> 1 (press) -> 0 (release) -> 1 (release)'
+  - combo: ['0:d', '1', '0:u']
+    print: '0 (press) -> 1 -> 0 (release)'
+  - combo: [['0:d', '1:d'], ['0:u', '1:u']]
+    print: '(0, 1)'
+  - combo: [['0', '1'], ['0', '1']]
+    print: '(0, 1) -> (0, 1)'
