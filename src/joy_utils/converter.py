@@ -24,6 +24,11 @@ class Converter(object):
         :return: Converted values
         :rtype: [float|bool|dict[float|bool]]
         """
+        if not isinstance(joy_msg, Joy):
+            name = joy_msg.__class__.__name__
+            fmt = 'Expected Joy instance but got {} instead'
+            rospy.logwarn_throttle(5, fmt.format(name))
+
         if keys is None:
             # Convert using all known conversions
             return self.convert(joy_msg, self.rules)
