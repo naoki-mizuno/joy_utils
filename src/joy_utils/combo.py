@@ -7,7 +7,7 @@ import six
 
 class Combo(object):
     def __init__(self,
-                 combos,
+                 combos=None,
                  timeout_key=0.05,
                  timeout_combo=0.3,
                  data_to_dict=None):
@@ -123,7 +123,7 @@ class Combo(object):
         combo = self._squash_combo_(self._current_combo)
 
         # print('Combo {}'.format(combo))
-        if combo in self._combo_definitions:
+        if self._combo_definitions is None or combo in self._combo_definitions:
             self.triggered_combo = copy.deepcopy(combo)
         else:
             self.clear()
