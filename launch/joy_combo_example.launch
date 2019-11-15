@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="joy_utils" type="joy_combo.py" name="joy_combo" output="screen" >
+    <rosparam command="load" file="$(find joy_utils)/config/joy_combo_example.yaml" />
+  </node>
+</launch>
