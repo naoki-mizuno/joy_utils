@@ -1,5 +1,3 @@
-from sensor_msgs.msg import Joy
-
 import six
 
 try:
@@ -18,17 +16,11 @@ class Converter(object):
         Normalizes the given Joy message following the conversion rule
         If one value is given as the key, dict is returned.
         :param joy_msg:
-        :type joy_msg: Joy
         :param keys: Keys in the conversion rule
         :type keys: [str,list[str]]
         :return: Converted values
         :rtype: [float|bool|dict[float|bool]]
         """
-        if not isinstance(joy_msg, Joy):
-            name = joy_msg.__class__.__name__
-            fmt = 'Expected Joy instance but got {} instead'
-            rospy.logwarn_throttle(5, fmt.format(name))
-
         if keys is None:
             # Convert using all known conversions
             return self.convert(joy_msg, self.rules)
@@ -48,7 +40,6 @@ class Converter(object):
     def convert(joy_msg, rules):
         """
         :param joy_msg:
-        :type joy_msg: Joy
         :param rules:
         :type rules: dict[str]
         :return:
@@ -65,7 +56,6 @@ class Converter(object):
         For example, expression 'a1 + a3 if b0 else a5' evaluates to the
         result of 'a1 + a3' if b0 is high, otherwise to the value of a5.
         :param joy_msg:
-        :type joy_msg: Joy
         :param expr:
         :type expr: str
         :return: the evaluated value
