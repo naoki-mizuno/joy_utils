@@ -221,18 +221,22 @@ class Combo(object):
     @staticmethod
     def make_combo(*args):
         """
-        Creates a combo with the correct type
+        Creates a combo from the given arguments
         :param args:
         :return:
         """
         if len(args) == 0:
             raise ValueError('At least one argument must be passed')
-        elif isinstance(args[0], six.string_types):
-            combo = [args[0]]
-        elif len(args) == 1:
-            combo = args[0]
-        else:
+        elif len(args) > 1:
+            # E.g. make_combo('b0', 'b1', 'b2')
             combo = args
+        elif isinstance(args[0], six.string_types):
+            # E.g. make_combo('b0')
+            combo = [args[0]]
+        else:
+            # E.g. make_combo(['b0', 'b1])
+            combo = args
+
         ret = []
         for key in combo:
             if isinstance(key, six.string_types):

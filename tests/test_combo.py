@@ -44,9 +44,12 @@ class TestCombo(object):
 
     def test_make_combo(self):
         for string, _, squashed in self.combo_definitions:
-            assert Combo.make_combo(string) == squashed
+            assert Combo.make_combo(*string) == squashed
         # More cases
         assert Combo.make_combo('b0') == (fs('b0'),)
+        assert Combo.make_combo(['b0']) == (fs('b0'),)
+        assert Combo.make_combo(['b0', 'b1']) == (fs('b0', 'b1'),)
+        assert Combo.make_combo('b0', 'b1') == (fs('b0'), fs('b1'))
 
     def test_squash_key(self):
         k1 = {'b0:d', 'b0:u'}
