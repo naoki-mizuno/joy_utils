@@ -16,7 +16,7 @@ class JoyConv(object):
             rospy.logwarn(fmt.format(', '.join(custom_keys)))
 
     def cb_joy(self, joy_msg):
-        converted = self._converter.get(joy_msg)
+        converted = self._converter.convert(joy_msg)
 
         new_joy = Joy()
         for key, val in converted.items():

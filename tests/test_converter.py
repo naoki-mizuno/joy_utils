@@ -28,12 +28,12 @@ class TestConverter(object):
             'l2': False,
         }
 
-    def test_get(self):
-        n = Converter(self.conversion)
-        assert n.get(self.joy) == self.answer
-
     def test_convert(self):
-        assert Converter.convert(self.joy, self.conversion) == self.answer
+        n = Converter(self.conversion)
+        assert n.convert(self.joy) == self.answer
+
+    def test_convert_with_rules(self):
+        assert Converter.convert_with_rules(self.joy, self.conversion) == self.answer
 
     def test_eval(self):
         assert Converter.eval(self.joy, 'a2') == 0.2

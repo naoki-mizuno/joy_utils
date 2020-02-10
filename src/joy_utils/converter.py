@@ -12,17 +12,17 @@ class Converter(object):
     def __init__(self, rules):
         self.rules = rules
 
-    def get(self, joy_msg):
+    def convert(self, joy_msg):
         """
-        Normalizes the given Joy message following the conversion rule
+        Converts the given Joy message following the conversion rule
         :param joy_msg:
         :return: Converted values
         :rtype: [float|bool|dict[float|bool]]
         """
-        return self.convert(joy_msg, self.rules)
+        return Converter.convert_with_rules(joy_msg, self.rules)
 
     @staticmethod
-    def convert(joy_msg, rules):
+    def convert_with_rules(joy_msg, rules):
         """
         :param joy_msg:
         :param rules:
