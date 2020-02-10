@@ -1,5 +1,6 @@
 import six
 
+import collections
 try:
     import numpy as np
 except ImportError:
@@ -8,33 +9,17 @@ import math
 
 
 class Converter(object):
-    def __init__(self, rules=None):
+    def __init__(self, rules):
         self.rules = rules
 
-    def get(self, joy_msg, keys=None):
+    def get(self, joy_msg):
         """
         Normalizes the given Joy message following the conversion rule
-        If one value is given as the key, dict is returned.
         :param joy_msg:
-        :param keys: Keys in the conversion rule
-        :type keys: [str,list[str]]
         :return: Converted values
         :rtype: [float|bool|dict[float|bool]]
         """
-        if keys is None:
-            # Convert using all known conversions
-            return self.convert(joy_msg, self.rules)
-        elif isinstance(keys, six.string_types):
-            # Only one key was given
-            return self.eval(joy_msg, self.rules[keys])
-
-        normalized = {}
-        for key in keys:
-            expr = self.rules[key]
-            val = self.eval(joy_msg, expr)
-            normalized[key] = val
-
-        return normalized
+        return self.convert(joy_msg, self.rules)
 
     @staticmethod
     def convert(joy_msg, rules):
@@ -55,11 +40,16 @@ class Converter(object):
         Evaluates a given expression using values from the joy message
         For example, expression 'a1 + a3 if b0 else a5' evaluates to the
         result of 'a1 + a3' if b0 is high, otherwise to the value of a5.
+        If expr is a list or tuple, a list is returned by recursively
+        calling Converter.eval.
         :param joy_msg:
         :param expr:
-        :type expr: str
+        :type expr: str|list|tuple|dict
         :return: the evaluated value
         """
+        if not isinstance(expr, six.string_types) and isinstance(expr, collections.Iterable):
+            return [Converter.eval(joy_msg, _expr) for _expr in expr]
+
         # Modules available for mathematical computation
         global_vars = {
             'm': np if np is not None else math,

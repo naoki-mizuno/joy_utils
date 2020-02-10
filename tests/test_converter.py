@@ -31,11 +31,6 @@ class TestConverter(object):
     def test_get(self):
         n = Converter(self.conversion)
         assert n.get(self.joy) == self.answer
-        assert n.get(self.joy, 'l1') == self.answer['l1']
-        assert n.get(self.joy, ('sticks/left/lat', 'dpad/up')) == {
-            'sticks/left/lat': self.answer['sticks/left/lat'],
-            'dpad/up': self.answer['dpad/up'],
-        }
 
     def test_convert(self):
         assert Converter.convert(self.joy, self.conversion) == self.answer
@@ -69,3 +64,12 @@ class TestConverter(object):
         # Conditionals
         assert Converter.eval(self.joy, 'a2 if b0 else a6') == 0.6
         assert Converter.eval(self.joy, 'a2 if b1 else a6') == 0.2
+
+        # List of expressions
+        assert Converter.eval(self.joy, ['a2', 'a3', 'a4']) == [0.2, 0.3, 0.4]
+
+        # Tuple of expressions
+        assert Converter.eval(self.joy, ('a2', 'a3', 'a4')) == [0.2, 0.3, 0.4]
+
+        # List of list of expressions
+        assert Converter.eval(self.joy, [['a1', 'a2'], 'a3', 'a4']) == [[0.1, 0.2], 0.3, 0.4]
