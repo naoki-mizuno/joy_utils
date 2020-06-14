@@ -8,6 +8,8 @@ class ConvertCombo(Combo):
 
         self._converter = Converter(rules)
 
+    def convert(self, joy_msg):
+        return self._converter.convert(joy_msg)
+
     def convert_and_process(self, joy_msg):
-        converted = self._converter.convert(joy_msg)
-        return self.process(converted)
+        return self.process(self.convert(joy_msg))
